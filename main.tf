@@ -335,7 +335,7 @@ resource "aws_autoscaling_group" "nodes" {
   desired_capacity     = var.min_worker_count
   launch_configuration = aws_launch_configuration.nodes.name
 
-  tags = concat(
+  tag = concat(
     [{
       key                 = "kubernetes.io/cluster/${var.cluster_name}"
       value               = "owned"
