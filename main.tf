@@ -335,19 +335,16 @@ resource "aws_autoscaling_group" "nodes" {
   desired_capacity     = var.min_worker_count
   launch_configuration = aws_launch_configuration.nodes.name
 
-  tag = concat(
-    [{
+  tag {
       key                 = "kubernetes.io/cluster/${var.cluster_name}"
       value               = "owned"
       propagate_at_launch = true
-    },
-    {
+    }
+    tag {
       key                 = "Name"
       value               = "${var.cluster_name}-node"
       propagate_at_launch = true
-    }],
-    var.tags2,
-  )
+    }
 
   lifecycle {
     ignore_changes = [desired_capacity]
